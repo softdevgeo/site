@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Learn languages through real content with Lingflix. Watch YouTube videos and movies with dual interactive subtitles.">
     <title>Lingflix - Learn Languages Through Real Content</title>
+    <link rel="icon" type="image/png" href="../assets/images/common/favicon.png">
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
@@ -12,9 +13,21 @@
         <nav class="nav">
             <div class="logo">
                 <img src="../assets/images/common/logo.png" alt="Lingflix Logo" class="logo-img">
-                Lingflix
+                <span>Lingflix</span>
             </div>
-            <a href="#download" class="cta-button">Get Started Free</a>
+            <div class="header-right">
+                <div class="language-selector">
+                    <button class="language-button" id="languageButton">
+                        <img src="../assets/images/flags/en.png" alt="English" class="flag-icon">
+                        <span>English</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <!-- Languages will be populated by JavaScript -->
+                    </div>
+                </div>
+                <a href="#download" class="cta-button">Get Started Free</a>
+            </div>
         </nav>
     </header>
 
@@ -39,32 +52,44 @@
             <h2 class="section-title">Everything You Need to Master Any Language</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🎥</div>
+                    <div class="feature-icon">
+                        <img src="../assets/images/icons/youtube.png" alt="YouTube Integration">
+                    </div>
                     <h3>YouTube Integration</h3>
                     <p>Watch any YouTube video with dual clickable subtitles. Search, browse curated playlists, or paste any URL to start learning immediately.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📱</div>
+                    <div class="feature-icon">
+                        <img src="../assets/images/icons/mobile.png" alt="Local Video Support">
+                    </div>
                     <h3>Local Video Support</h3>
                     <p>Load movies and videos from your device. Watch your favorite content with interactive dual subtitles, anytime, anywhere.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💬</div>
+                    <div class="feature-icon">
+                        <img src="../assets/images/icons/subtitles.png" alt="Interactive Subtitles">
+                    </div>
                     <h3>Interactive Subtitles</h3>
                     <p>Click any word to see instant translations. Both foreign and native language subtitles work together to accelerate your learning.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📚</div>
+                    <div class="feature-icon">
+                        <img src="../assets/images/icons/vocabulary.png" alt="Smart Vocabulary Builder">
+                    </div>
                     <h3>Smart Vocabulary Builder</h3>
                     <p>Every word you click is automatically saved to your personal dictionary for review and memorization.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
+                    <div class="feature-icon">
+                        <img src="../assets/images/icons/globe.png" alt="68 Languages Supported">
+                    </div>
                     <h3>68 Languages Supported</h3>
                     <p>Learn any language from any language. Comprehensive localization ensures everyone can use Lingflix in their native tongue.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">
+                        <img src="../assets/images/icons/curated.png" alt="Curated Content">
+                    </div>
                     <h3>Curated Content</h3>
                     <p>Ready-made video collections and playlists for all 68 languages help you find the perfect content for your level.</p>
                 </div>
@@ -79,7 +104,7 @@
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
                         <div class="screenshot-content">
-                            <img src="../assets/images/screenshots/en/screenshot_00.png" alt="Lingflix Welcome Screen">
+                            <img class="screenshot-img" data-screenshot="0" alt="Lingflix Welcome Screen">
                         </div>
                     </div>
                     <div class="screenshot-caption">Welcome to Lingflix</div>
@@ -87,7 +112,7 @@
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
                         <div class="screenshot-content">
-                            <img src="../assets/images/screenshots/en/screenshot_01.png" alt="Dual Interactive Subtitles">
+                            <img class="screenshot-img" data-screenshot="1" alt="Dual Interactive Subtitles">
                         </div>
                     </div>
                     <div class="screenshot-caption">Interactive Video Player</div>
@@ -95,7 +120,7 @@
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
                         <div class="screenshot-content">
-                            <img src="../assets/images/screenshots/en/screenshot_02.png" alt="YouTube Playlists">
+                            <img class="screenshot-img" data-screenshot="2" alt="YouTube Playlists">
                         </div>
                     </div>
                     <div class="screenshot-caption">Browse Playlists</div>
@@ -103,7 +128,7 @@
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
                         <div class="screenshot-content">
-                            <img src="../assets/images/screenshots/en/screenshot_03.png" alt="Vocabulary Dictionary">
+                            <img class="screenshot-img" data-screenshot="3" alt="Vocabulary Dictionary">
                         </div>
                     </div>
                     <div class="screenshot-caption">Vocabulary Builder</div>
@@ -111,7 +136,7 @@
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
                         <div class="screenshot-content">
-                            <img src="../assets/images/screenshots/en/screenshot_04.png" alt="Local Video Files">
+                            <img class="screenshot-img" data-screenshot="4" alt="Local Video Files">
                         </div>
                     </div>
                     <div class="screenshot-caption">Device Video Library</div>
@@ -119,7 +144,7 @@
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
                         <div class="screenshot-content">
-                            <img src="../assets/images/screenshots/en/screenshot_05.png" alt="Subtitle Management">
+                            <img class="screenshot-img" data-screenshot="5" alt="Subtitle Management">
                         </div>
                     </div>
                     <div class="screenshot-caption">Subtitle Selection</div>

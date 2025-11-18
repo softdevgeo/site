@@ -61,16 +61,15 @@
             const browserLang = navigator.language || navigator.userLanguage;
             const langCode = browserLang.split('-')[0]; // Get 'en' from 'en-US'
 
-            // List of supported languages (you can expand this)
+            // List of supported languages
             const supportedLanguages = [
-                'en', 'ru', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'zh',
-                'ar', 'hi', 'nl', 'pl', 'tr', 'sv', 'da', 'fi', 'no', 'cs',
-                'el', 'he', 'id', 'th', 'vi', 'uk', 'ro', 'hu', 'bg', 'hr',
-                'sk', 'sl', 'sr', 'lt', 'lv', 'et', 'is', 'ga', 'mt', 'cy',
-                'eu', 'ca', 'gl', 'af', 'sq', 'az', 'be', 'bn', 'bs', 'ka',
-                'gu', 'ha', 'kk', 'km', 'kn', 'ky', 'lo', 'mk', 'ml', 'mn',
-                'mr', 'my', 'ne', 'pa', 'ps', 'fa', 'si', 'ta', 'te', 'tg',
-                'ur', 'uz'
+                'af', 'am', 'ar', 'az', 'be', 'bg', 'bn', 'bs', 'ca', 'cs',
+                'da', 'de', 'el', 'en', 'es', 'et', 'eu', 'fa', 'fi', 'fr',
+                'gl', 'he', 'hi', 'hr', 'hu', 'hy', 'id', 'is', 'it', 'ja',
+                'ka', 'kk', 'km', 'kn', 'ko', 'lt', 'lv', 'mk', 'ml', 'mn',
+                'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'no', 'pl', 'pt', 'ro',
+                'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'sw', 'ta', 'te',
+                'th', 'tl', 'tr', 'uk', 'ur', 'uz', 'vi', 'zh'
             ];
 
             // Check if the language is supported
@@ -82,12 +81,27 @@
             return 'en';
         }
 
+        // Get the base path of the website
+        function getBasePath() {
+            const path = window.location.pathname;
+            const parts = path.split('/').filter(p => p);
+            
+            // Remove index.html if present
+            if (parts[parts.length - 1] === 'index.html') {
+                parts.pop();
+            }
+            
+            // Get base path (everything before the file)
+            return '/' + parts.join('/') + (parts.length > 0 ? '/' : '');
+        }
+
         // Redirect to appropriate language page
         const language = getPreferredLanguage();
+        const basePath = getBasePath();
         
         // Small delay for smooth transition
         setTimeout(() => {
-            window.location.href = `/${language}/`;
+            window.location.href = basePath + language + '/';
         }, 500);
     </script>
 </body>

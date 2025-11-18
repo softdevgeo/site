@@ -1,5 +1,138 @@
 // Lingflix Landing Page JavaScript
 
+// Language configuration
+const languages = {
+    'af': 'Afrikaans',
+    'am': 'Amharic',
+    'ar': 'Arabic',
+    'az': 'Azerbaijani',
+    'be': 'Belarusian',
+    'bg': 'Bulgarian',
+    'bn': 'Bengali',
+    'bs': 'Bosnian',
+    'ca': 'Catalan',
+    'cs': 'Czech',
+    'da': 'Danish',
+    'de': 'German',
+    'el': 'Greek',
+    'en': 'English',
+    'es': 'Spanish',
+    'et': 'Estonian',
+    'eu': 'Basque',
+    'fa': 'Persian',
+    'fi': 'Finnish',
+    'fr': 'French',
+    'gl': 'Galician',
+    'he': 'Hebrew',
+    'hi': 'Hindi',
+    'hr': 'Croatian',
+    'hu': 'Hungarian',
+    'hy': 'Armenian',
+    'id': 'Indonesian',
+    'is': 'Icelandic',
+    'it': 'Italian',
+    'ja': 'Japanese',
+    'ka': 'Georgian',
+    'kk': 'Kazakh',
+    'km': 'Khmer',
+    'kn': 'Kannada',
+    'ko': 'Korean',
+    'lt': 'Lithuanian',
+    'lv': 'Latvian',
+    'mk': 'Macedonian',
+    'ml': 'Malayalam',
+    'mn': 'Mongolian',
+    'mr': 'Marathi',
+    'ms': 'Malay',
+    'my': 'Burmese',
+    'nb': 'Norwegian Bokmål',
+    'ne': 'Nepali',
+    'nl': 'Dutch',
+    'no': 'Norwegian',
+    'pl': 'Polish',
+    'pt': 'Portuguese',
+    'ro': 'Romanian',
+    'ru': 'Russian',
+    'si': 'Sinhala',
+    'sk': 'Slovak',
+    'sl': 'Slovenian',
+    'sq': 'Albanian',
+    'sr': 'Serbian',
+    'sv': 'Swedish',
+    'sw': 'Swahili',
+    'ta': 'Tamil',
+    'te': 'Telugu',
+    'th': 'Thai',
+    'tl': 'Tagalog',
+    'tr': 'Turkish',
+    'uk': 'Ukrainian',
+    'ur': 'Urdu',
+    'uz': 'Uzbek',
+    'vi': 'Vietnamese',
+    'zh': 'Chinese'
+};
+
+// Get current language from URL
+function getCurrentLanguage() {
+    const pathParts = window.location.pathname.split('/');
+    const langIndex = pathParts.findIndex(part => languages.hasOwnProperty(part));
+    return langIndex !== -1 ? pathParts[langIndex] : 'en';
+}
+
+// Set screenshot sources based on current language
+function setScreenshotSources() {
+    const currentLang = getCurrentLanguage();
+    const screenshots = document.querySelectorAll('.screenshot-img');
+    
+    screenshots.forEach(img => {
+        const screenshotNum = img.getAttribute('data-screenshot');
+        const screenshotPath = `../assets/images/screenshots/${currentLang}/screenshot_0${screenshotNum}.png`;
+        img.src = screenshotPath;
+    });
+}
+
+// Initialize language selector
+function initLanguageSelector() {
+    const currentLang = getCurrentLanguage();
+    const languageButton = document.getElementById('languageButton');
+    const languageDropdown = document.getElementById('languageDropdown');
+    
+    if (!languageButton || !languageDropdown) return;
+    
+    // Set current language in button
+    const currentLangName = languages[currentLang];
+    languageButton.querySelector('span:first-of-type').textContent = currentLangName;
+    languageButton.querySelector('.flag-icon').src = `../assets/images/flags/${currentLang}.png`;
+    
+    // Populate dropdown
+    let dropdownHTML = '';
+    for (const [code, name] of Object.entries(languages)) {
+        dropdownHTML += `
+            <a href="../${code}/" class="language-option ${code === currentLang ? 'active' : ''}" data-lang="${code}">
+                <img src="../assets/images/flags/${code}.png" alt="${name}" class="flag-icon">
+                <span>${name}</span>
+            </a>
+        `;
+    }
+    languageDropdown.innerHTML = dropdownHTML;
+    
+    // Toggle dropdown
+    languageButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle('show');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        languageDropdown.classList.remove('show');
+    });
+    
+    // Prevent dropdown from closing when clicking inside
+    languageDropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+}
+
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -78,19 +211,26 @@ if (screenshotSlider) {
     });
 }
 
-// Add loading animation for images
+// Wait for images to load before showing them
 document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('load', function() {
-        this.style.opacity = '1';
-    });
-    img.style.opacity = '0';
-    img.style.transition = 'opacity 0.3s ease-in';
-});
-
-// Error handling for missing images
-document.querySelectorAll('img').forEach(img => {
+    // Don't apply opacity animation to screenshots (they're set separately)
+    // if (!img.classList.contains('screenshot-img')) {
+    //     img.style.opacity = '0';
+    //     img.style.transition = 'opacity 0.3s ease-in';
+        
+    //     img.addEventListener('load', function() {
+    //         this.style.opacity = '1';
+    //     });
+    // }
+    
+    // Error handling for missing images
     img.addEventListener('error', function() {
         console.warn('Failed to load image:', this.src);
-        // You can add a placeholder or fallback here if needed
     });
+});
+
+// Initialize everything when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    setScreenshotSources();
+    initLanguageSelector();
 });
