@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lingflix - Language Learning App</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+        }
+        .loader {
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="spinner"></div>
+        <h1>🎬 Lingflix</h1>
+        <p>Redirecting to your language...</p>
+    </div>
+
+    <script>
+        // Language redirect logic
+        function getPreferredLanguage() {
+            // Check if language is stored in localStorage
+            const savedLang = localStorage.getItem('lingflix_language');
+            if (savedLang) {
+                return savedLang;
+            }
+
+            // Get browser language
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0]; // Get 'en' from 'en-US'
+
+            // List of supported languages (you can expand this)
+            const supportedLanguages = [
+                'en', 'ru', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'zh',
+                'ar', 'hi', 'nl', 'pl', 'tr', 'sv', 'da', 'fi', 'no', 'cs',
+                'el', 'he', 'id', 'th', 'vi', 'uk', 'ro', 'hu', 'bg', 'hr',
+                'sk', 'sl', 'sr', 'lt', 'lv', 'et', 'is', 'ga', 'mt', 'cy',
+                'eu', 'ca', 'gl', 'af', 'sq', 'az', 'be', 'bn', 'bs', 'ka',
+                'gu', 'ha', 'kk', 'km', 'kn', 'ky', 'lo', 'mk', 'ml', 'mn',
+                'mr', 'my', 'ne', 'pa', 'ps', 'fa', 'si', 'ta', 'te', 'tg',
+                'ur', 'uz'
+            ];
+
+            // Check if the language is supported
+            if (supportedLanguages.includes(langCode)) {
+                return langCode;
+            }
+
+            // Default to English
+            return 'en';
+        }
+
+        // Redirect to appropriate language page
+        const language = getPreferredLanguage();
+        
+        // Small delay for smooth transition
+        setTimeout(() => {
+            window.location.href = `/${language}/`;
+        }, 500);
+    </script>
+</body>
+</html>
