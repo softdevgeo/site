@@ -451,6 +451,7 @@ body {
     object-fit: cover;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 1 !important;
 }
 
 /* CTA Section */
@@ -625,5 +626,16 @@ body {
 
     .language-count {
         font-size: 3.5rem;
+    }
+
+    .language-flags-grid {
+        grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+
+    .language-flag {
+        width: 30px;
+        height: 22px;
     }
 }

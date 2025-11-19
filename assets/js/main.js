@@ -146,7 +146,18 @@ function initLanguageSelector() {
     // Toggle dropdown
     languageButton.addEventListener('click', (e) => {
         e.stopPropagation();
+        const isVisible = languageDropdown.classList.contains('show');
         languageDropdown.classList.toggle('show');
+        
+        // Scroll to active language when opening
+        if (!isVisible) {
+            setTimeout(() => {
+                const activeOption = languageDropdown.querySelector('.language-option.active');
+                if (activeOption) {
+                    activeOption.scrollIntoView({ block: 'center', behavior: 'instant' });
+                }
+            }, 10);
+        }
     });
     
     // Close dropdown when clicking outside
@@ -211,4 +222,47 @@ document.querySelectorAll('img').forEach(img => {
 document.addEventListener('DOMContentLoaded', () => {
     loadHeaderFooter();
     initLanguageSelector();
+    displayLanguageFlags();
 });
+
+// Display all language flags in the languages section
+function displayLanguageFlags() {
+    const languagesSection = document.querySelector('.languages .container');
+    if (!languagesSection) return;
+    
+    // Check if flags container already exists
+    let flagsContainer = languagesSection.querySelector('.language-flags-grid');
+    if (flagsContainer) return; // Already added
+    
+    // Create flags container
+    flagsContainer = document.createElement('div');
+    flagsContainer.className = 'language-flags-grid';
+    
+    // Sort languages by name
+    const sortedLanguages = Object.entries(languages).sort((a, b) => {
+        return a[1].localeCompare(b[1]);
+    });
+    
+    // Add all flags
+    for (const [code, name] of sortedLanguages) {
+        const flagItem = document.createElement('div');
+        flagItem.className = 'language-flag-item';
+        flagItem.title = name;
+        
+        const flagImg = document.createElement('img');
+        flagImg.src = `../assets/images/flags/${code}.png`;
+        flagImg.alt = name;
+        flagImg.className = 'language-flag';
+        
+        flagItem.appendChild(flagImg);
+        flagsContainer.appendChild(flagItem);
+    }
+    
+    // Insert after the description paragraph
+    const description = languagesSection.querySelector('p');
+    if (description) {
+        description.after(flagsContainer);
+    } else {
+        languagesSection.appendChild(flagsContainer);
+    }
+}

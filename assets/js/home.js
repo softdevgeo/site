@@ -25,13 +25,15 @@ document.querySelectorAll('.faq-question').forEach(question => {
         const isActive = faqItem.classList.contains('active');
         
         // Close all other FAQ items
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-        });
+        // document.querySelectorAll('.faq-item').forEach(item => {
+        //     item.classList.remove('active');
+        // });
         
         // Toggle current item
         if (!isActive) {
             faqItem.classList.add('active');
+        } else {
+            faqItem.classList.remove('active');
         }
     });
 });

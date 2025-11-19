@@ -5,15 +5,16 @@ grep -rl "<p> Download: This blog post is available as a convenient and portable
 grep -rl "This blog post is available" /Users/maximnikolaev/Documents/server_projects/fluentu_blog_html/en/blog/source | wc -l
 grep -rl "Updated:" /Users/maximnikolaev/Documents/server_projects/fluentu_blog_html/en/blog/source | wc -l
 
-убрать везде ../
 
-Список флагов не отображается на главной странице
-При клике на выпадающий список языков активный язык должен быть виден.А сейчас список языков отображается прокрученным в начало списка.
++ Список флагов не отображается на главной странице (в разделе 68 Languages Available)
++ При клике на выпадающий список языков он отображается прокрученным в начало списка. Поэтому активный (выбранный) язык может быть не виден. Активный (выбранный) язык должен быть виден (он должен быть первым в списке видимых языков).
+- В секции "Frequently Asked Questions" при открытии одного элемента остальные закрываются. Сделай так, чтобы при открытии элемента остальные элементы не закрывались.
+
 Под заголовком статьи добавлять текст: Updated: January 2025 | Reading time: 15 minutes 
 оглавление генерить автоматически
 убирать надпись: <p> Download: This blog post is available as a convenient and portable PDF that you can take anywhere. Click here to get a copy. (Download) </p>
-флаг и название языка в выпадающем списке подставлять автоматически
-
+названия языков в выпадающем списке должны быть на языке сайта
+На главной стороне изображения флагов сделать более четкими.
 
 -----
 1)
