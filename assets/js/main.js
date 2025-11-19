@@ -72,6 +72,40 @@ const languages = {
     'zh': 'Chinese'
 };
 
+// Load header and footer
+async function loadHeaderFooter() {
+    // Determine the correct path depth
+    const pathDepth = window.location.pathname.split('/').filter(p => p).length - 1;
+    // const basePath = '../'.repeat(pathDepth);
+    
+    try {
+        // Load header
+        // const headerResponse = await fetch(`${basePath}assets/includes/header.html`);
+        const headerResponse = await fetch(`/assets/includes/header.html`);
+        const headerHTML = await headerResponse.text();
+        // console.log("---1---")
+        // console.log(headerHTML)
+        // console.log("---2---")
+        document.getElementById('header-placeholder').innerHTML = headerHTML;
+        
+        // Load footer
+        // const footerResponse = await fetch(`${basePath}assets/includes/footer.html`);
+        const footerResponse = await fetch(`/assets/includes/footer.html`);
+        const footerHTML = await footerResponse.text();
+        // console.log("---1---")
+        // console.log(footerHTML)
+        // console.log("---2---")
+        document.getElementById('footer-placeholder').innerHTML = footerHTML;
+        
+        // Reinitialize main.js functions after header is loaded
+        if (typeof initLanguageSelector === 'function') {
+            initLanguageSelector();
+        }
+    } catch (error) {
+        console.error('Error loading header/footer:', error);
+    }
+}
+
 // Get current language from URL
 function getCurrentLanguage() {
     const pathParts = window.location.pathname.split('/');
@@ -86,7 +120,7 @@ function setScreenshotSources() {
     
     screenshots.forEach(img => {
         const screenshotNum = img.getAttribute('data-screenshot');
-        const screenshotPath = `../assets/images/screenshots/${currentLang}/screenshot_0${screenshotNum}.png`;
+        const screenshotPath = `/assets/images/screenshots/${currentLang}/screenshot_0${screenshotNum}.png`;
         img.src = screenshotPath;
     });
 }
@@ -102,14 +136,19 @@ function initLanguageSelector() {
     // Set current language in button
     const currentLangName = languages[currentLang];
     languageButton.querySelector('span:first-of-type').textContent = currentLangName;
-    languageButton.querySelector('.flag-icon').src = `../assets/images/flags/${currentLang}.png`;
+    languageButton.querySelector('.flag-icon').src = `/assets/images/flags/${currentLang}.png`;
+    
+    // Sort languages by name (not by code)
+    const sortedLanguages = Object.entries(languages).sort((a, b) => {
+        return a[1].localeCompare(b[1]); // Sort by language name
+    });
     
     // Populate dropdown
     let dropdownHTML = '';
-    for (const [code, name] of Object.entries(languages)) {
+    for (const [code, name] of sortedLanguages) {
         dropdownHTML += `
-            <a href="../${code}/" class="language-option ${code === currentLang ? 'active' : ''}" data-lang="${code}">
-                <img src="../assets/images/flags/${code}.png" alt="${name}" class="flag-icon">
+            <a href="/${code}/" class="language-option ${code === currentLang ? 'active' : ''}" data-lang="${code}">
+                <img src="/assets/images/flags/${code}.png" alt="${name}" class="flag-icon">
                 <span>${name}</span>
             </a>
         `;
@@ -231,6 +270,7 @@ document.querySelectorAll('img').forEach(img => {
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+    loadHeaderFooter();
     setScreenshotSources();
     initLanguageSelector();
 });

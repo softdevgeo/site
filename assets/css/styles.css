@@ -37,6 +37,16 @@ body {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+#header-placeholder {
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white;
+    /* padding: 1rem 2rem; */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
 .nav {
     max-width: 1200px;
     margin: 0 auto;
@@ -292,6 +302,16 @@ body {
 .feature-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-icon img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
 }
 
 .feature-card h3 {
@@ -394,6 +414,43 @@ body {
     font-size: 5rem;
     font-weight: 800;
     margin-bottom: 1rem;
+}
+
+.language-flags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+    margin: 3rem auto 0;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.language-flag-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.language-flag-item:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.language-flag {
+    width: 40px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* CTA Section */
@@ -534,6 +591,19 @@ body {
     .app-badges {
         flex-direction: column;
         align-items: center;
+    }
+
+    .header-right {
+        gap: 0.5rem;
+    }
+
+    .language-button span:first-of-type {
+        display: none;
+    }
+
+    .cta-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
     }
 
     .features-grid {
